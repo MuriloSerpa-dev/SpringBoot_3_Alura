@@ -109,3 +109,7 @@ de dados, que permite aos desenvolvedores gerenciar a evolução de seus esquema
 e controlada, Para usar devemos adicionar a dependencia no pom.xml,  para cada mudança que fizermos no banco de dados devemos 
 criar um arquivo .SQL e la por os comandos SQL, porem deve-se ser salvo em um arquivo especifico, devemos criar um diretorio 
 dentro da pasta resources, db e dentro dele migration e dentro dessa pasta ciramos os arquivos SQL.
+
+Nova migração, para fazer uma mudança na API como no caso vamos adicionar o parametro telefone ao medico, precisamos adicionar
+um um parametro na migração no arquivo sql porem não podemos modificar oque ja foi feito, para isso devemos criar um nova migration
+uma nova migração com as modificações feitas.
