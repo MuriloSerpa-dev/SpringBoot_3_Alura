@@ -29,6 +29,8 @@ para podermos instruir um provedor JPA a converter uma enumeração em seu valor
 @Embedded(embutido) faz de um objeto um componente, um componente por si só é dependente da classe que o contém no case Cliente
 tem Endereço endereço eh um forte candidato a embutido, visto que nao existe endereço sem ter um Cliente. Ai você poderá aplicar a notação @Cascade.
 
+@Transactional essa anotação ela é utilizada para controlar transações em métodos de um serviço. Ela garante que, caso ocorra algum erro durante
+a execução do método, a transação será desfeita e o estado anterior do banco de dados será restaurado.
 LOMBOK
 Usando a dependencia Lombok eu tenho uma facilidade, de usar anotações para comprimir o meu projeto ex
 usando lombok eu posso usar a anotação
@@ -38,3 +40,61 @@ usando lombok eu posso usar a anotação
 @AllArgsConstructor que gera um construtor com todas as entidades todos os campos
 
 @EqualsAndHashcode gera o equal e hashcode e nele eu posso especificar onde ele deve trabalhar EX: (of = "id")
+
+Classses
+
+Application.properties -> é uma classe, um arquivo que é usada para configurações do nossso ambiente Spring, conectar ao banco de dados e etc
+
+Pom.xml -> Contém os metadados do projeto e também é responsável por gerenciar dependências e configurar plug-ins que nos ajudam a automatizar muitas tarefas repetitivas
+
+Controller classes com assinatura controller são objetos de classes que estendem de yii\base\Controller e são responsáveis pelo processamento das requisições e por 
+gerar respostas onde especificamos o comportamento dos verbos http
+
+Repository classes repository provê uma interface para as regras de negócio onde os objetos são acessados como em uma coleção,
+ele usa a camada de persistência para gravar e recuperar os dados necessários para persistir e recuperar os objetos de negócio,
+ela extend de JPA respository, ela necessita de generics que são dois tipos de objetos, que são os tipos de entidade que esse respository vai trabalhar
+ex: public interface MedicoRepository extends JpaRepository<Medico, Long> {
+
+
+Para usar, persistir o repository o Objeto no banco de dados, criamos um atributo na classe Controller, porem pra instanciar
+como ela é uma classe de interface respository precisamos passar a anotação @Autowired, que faz a injeção de dependencias ele instancia o respository
+dentro da nossa classe controller
+ex
+public class MedicoController {
+@Autowired
+private MedicoRepository repository;
+public void cadastrar(@RequestBody DadosCadastroMedico dados){
+repository.save(new Medico(dados));
+}
+
+Para salvar os parametros recebidos pelo Json na aplicação usamos o atributo criado respository, no exemplo acima usamos no metodo cadastrar
+como o repository erda de JPAREPOSITORY la ja tem um metodo save, que salva que ja faz o insert no banco de dados, porem necessita receber um objeto do tipo medico
+e no nosso exemplo passamos DadosCadastrais do tipo javarecord, então é necessario convertelo para o tipo medico, então vamos usar o construtor para
+instanciar um objeto Medico que vai receber os parametros do javarecord DadosCadastrais, criamos um contrutor dentro da classe medico 
+ja passando os dados cadastroMedico para que fique mais simples a implementacao.
+Precisamos fazer o mesmo com a classe de endereço, criar um construtor, so que passando os dados endereco
+
+Construtor medico
+public Medico(DadosCadastroMedico dados) {
+this.nome = dados.nome();
+this.email = dados.email();
+this.crm = dados.crm();
+this.especialidade = dados.especialidade();
+this.endereco = new Endereco(dados.dadosendereco());
+
+Construtor endereco
+public Endereco(Dadosendereco dadosendereco) {
+this.logradouro = dadosendereco.logradouro();
+this.bairro = dadosendereco.bairro();
+this.cep = dadosendereco.cep();
+this.numero = dadosendereco.numero();
+this.complemento = dadosendereco.complemnto();
+this.uf = dadosendereco.uf();
+}
+
+
+Usar ferramentas de migrações, nesse curso vamos usar o FLYWAY que  é uma ferramenta de controle de versão para bancos 
+de dados, que permite aos desenvolvedores gerenciar a evolução de seus esquemas de banco de dados de forma automatizada
+e controlada, Para usar devemos adicionar a dependencia no pom.xml,  para cada mudança que fizermos no banco de dados devemos 
+criar um arquivo .SQL e la por os comandos SQL, porem deve-se ser salvo em um arquivo especifico, devemos criar um diretorio 
+dentro da pasta resources, db e dentro dele migration e dentro dessa pasta ciramos os arquivos SQL.
