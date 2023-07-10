@@ -41,6 +41,17 @@ usando lombok eu posso usar a anotação
 
 @EqualsAndHashcode gera o equal e hashcode e nele eu posso especificar onde ele deve trabalhar EX: (of = "id")
 
+BeanValidation usamos ele na classe record que é onde o metodo cadastrar da classe controller recebe os parametros
+Bean Validation, a partir de anotações ele vai verificar, no caso, se as informações que chegam estão de acordo com as 
+anotações Bean valitadation nada mais é que Anotações que são usadas para validar os parametros, essa anotações vem do pacote 
+jakarta.validation, é nessecessario a anotação @Valid para validar as anotacoes ou seja o Bean validatiom
+ex
+@NotNull é para informar que o parametro não pode ser nulo.
+@NotBlank verificar se o parametro não esta nule e nem vazio.
+@Pattern recebe uma expressao regular, que pode ser digitos, letras e etc
+@Valid para que as validações inseridas sejam reconhecidas pelo spring e executadas, ex de como usamos no nosso projeto, para validar 
+um DTO que dentro dele vai ter outras validacoes que quero que sejam executadas. 
+
 Classses
 
 Application.properties -> é uma classe, um arquivo que é usada para configurações do nossso ambiente Spring, conectar ao banco de dados e etc
@@ -56,7 +67,7 @@ ela extend de JPA respository, ela necessita de generics que são dois tipos de 
 ex: public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
 
-Para usar, persistir o repository o Objeto no banco de dados, criamos um atributo na classe Controller, porem pra instanciar
+Para usar, persistir o REPOSITORY o Objeto no banco de dados, criamos um atributo na classe Controller, porem pra instanciar
 como ela é uma classe de interface respository precisamos passar a anotação @Autowired, que faz a injeção de dependencias ele instancia o respository
 dentro da nossa classe controller
 ex
