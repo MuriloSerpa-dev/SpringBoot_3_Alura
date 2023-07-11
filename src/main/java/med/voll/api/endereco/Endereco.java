@@ -20,7 +20,7 @@ public class Endereco {
     private String complemento;
     private String uf;
 
-    public Endereco(Dadosendereco dadosendereco) {
+    public Endereco(DadosEndereco dadosendereco) {
         this.logradouro = dadosendereco.logradouro();
         this.bairro = dadosendereco.bairro();
         this.cidade = dadosendereco.cidade();
@@ -28,5 +28,30 @@ public class Endereco {
         this.numero = dadosendereco.numero();
         this.complemento = dadosendereco.complemnto();
         this.uf = dadosendereco.uf();
+    }
+
+    public void atualizarInformacoes(DadosEndereco dados) {
+        if (this.logradouro != null){
+            this.logradouro = dados.logradouro();
+        }
+        if (this.bairro != null){
+            this.bairro = dados.bairro();
+        }
+        if (this.cidade != null){
+            this.cidade = dados.cidade();
+        }
+        if (this.cep != null){
+            this.cep = dados.cep();
+        }
+        if (this.numero != null){
+            this.numero = dados.numero();
+        }
+        if (this.complemento != null){
+            this.complemento = dados.complemnto();
+        }
+        if (this.uf != null){
+            this.uf = dados.uf();
+        }
+
     }
 }

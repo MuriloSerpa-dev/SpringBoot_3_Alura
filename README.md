@@ -20,7 +20,11 @@ Identity que falamos que deve pegar o ultimo registro daquela tabela e seguir co
 #Metodo do protocolo Http
 @GetMapping é um verbo do metodo protocolo Http que trata de leitura
 
-@PostMapping é um verbo que trata
+@PostMapping é um verbo que é usado quando o cliente deseja enviar dados para processamento ao servidor, como os dados de um formulário,
+por exemplo.
+
+@PutMapping é usada para a substituição completa de um recurso OSLC. O método PUT atualiza as propriedades literais e as propriedades 
+de recurso local, além de excluir quaisquer propriedades de recurso local que não estão incluídas na solicitação.
 
 @Table A anotação é usada para especificar a tabela principal da entidade atualmente anotadaTable possui quatro atributos que possibilitam
 ao desenvolver sobrescrever o nome da tabela, como dito anteriormente, sobrescrever seu catálogo, seu esquema e assegurar restrições de unicidade

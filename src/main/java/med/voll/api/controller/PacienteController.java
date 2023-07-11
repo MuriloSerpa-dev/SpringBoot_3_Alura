@@ -27,7 +27,9 @@ public class PacienteController {
         pacienteRespository.save(new Paciente(dados));
     }
     @GetMapping
-    public Page<DadosListagemPaciente> listager(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
+    public Page<DadosListagemPaciente> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
         return pacienteRespository.findAll(paginacao).map(DadosListagemPaciente::new);
     }
+
+
 }
