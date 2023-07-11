@@ -33,4 +33,10 @@ public class MedicoController {
         medico.atualizarInformacoes(dados); // usar um metodo que atualiza os dados recebidos, Pelos dadosAtualizacao medico
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id){
+            repository.deleteById(id);
+    }
+
 }
