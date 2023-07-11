@@ -1,7 +1,8 @@
 # SpringBoot_3_Alura
 Curso de Spring Boot Alura
 
-Anotaçãoes
+Anotaçãoes:
+
 @RestController -> Usamos essa anotação para uma classe que iremos usar como um controlador, quando usamos essa anotação dizemos para o
 framework que iremos usar essa classe voltada para o desenvolvimento web RestFul que lida com os metodos(POST,GET,PUT, etc).
 
@@ -12,27 +13,34 @@ requisição localhost:8080/ex ira cair nesse controller.
 
 @Valid -> indica que os dados recebidos devem ser validados.
 
+@GeneratedValue faz parte do pacote javax. persistence. Neste caso, o identificador único será gerado pela coluna de auto incremento
+do banco de dados, ou seja ele fala que o campo mapeado será gerado automaticamente pelo banco de dados, dai temos algumas estrategia como
+Identity que falamos que deve pegar o ultimo registro daquela tabela e seguir com base naquele
+
 #Metodo do protocolo Http
 @GetMapping é um verbo do metodo protocolo Http que trata de leitura
 
 @PostMapping é um verbo que trata
 
-@Table A anotação é usada para especificar a tabela principal da entidade atualmente anotada. e espicificamos o nome dela entre 
+@Table A anotação é usada para especificar a tabela principal da entidade atualmente anotadaTable possui quatro atributos que possibilitam
+ao desenvolver sobrescrever o nome da tabela, como dito anteriormente, sobrescrever seu catálogo, seu esquema e assegurar restrições de unicidade
+nas colunas da tabela. e espicificamos o nome dela entre 
 parenteses ex: @Table( name = 'nomeTabela')
 
-@Entity é usada para especificar que a classe anotada atualmente representa um tipo de entidade. @Entity define que uma classe 
-pode ser mapeada para uma tabela. E é isso, é apenas um marcador, como por exemplo Interface Serializável
+@Entity é usada para especificar que a classe anotada atualmente representa um tipo de entidade @Entity é utilizada para informar 
+que uma classe também é uma entidade a partir disso, a JPA estabelecerá a ligação entre a entidade e uma tabela de mesmo nome no
+banco de dados, onde os dados de objetos desse tipo poderão ser persistidos.
 
 @Enumerated A anotação @Enumerated é usada para especificar que um atributo de entidade representa um tipo enumerado,  é usado
 para podermos instruir um provedor JPA a converter uma enumeração em seu valor ordinal ou String.
 
-@Embedded(embutido) faz de um objeto um componente, um componente por si só é dependente da classe que o contém no case Cliente
+@Embedded(embutido) faz de um objeto um componente, por si só é dependente da classe que o contém no case Cliente
 tem Endereço endereço eh um forte candidato a embutido, visto que nao existe endereço sem ter um Cliente. Ai você poderá aplicar a notação @Cascade.
 
 @Transactional essa anotação ela é utilizada para controlar transações em métodos de um serviço. Ela garante que, caso ocorra algum erro durante
 a execução do método, a transação será desfeita e o estado anterior do banco de dados será restaurado.
 LOMBOK
-Usando a dependencia Lombok eu tenho uma facilidade, de usar anotações para comprimir o meu projeto ex
+Usando a dependencia Lombok eu tenho a facilidade, de usar anotações para comprimir o meu projeto ex
 usando lombok eu posso usar a anotação
 @Getter que gera os Getters sem a necessidade de digitar todo o codigo apenas com a anotacao eu consigo passar para o Spring todos os Getters
 
@@ -66,7 +74,7 @@ ele usa a camada de persistência para gravar e recuperar os dados necessários 
 ela extend de JPA respository, ela necessita de generics que são dois tipos de objetos, que são os tipos de entidade que esse respository vai trabalhar
 ex: public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
-
+@Autowired
 Para usar, persistir o REPOSITORY o Objeto no banco de dados, criamos um atributo na classe Controller, porem pra instanciar
 como ela é uma classe de interface respository precisamos passar a anotação @Autowired, que faz a injeção de dependencias ele instancia o respository
 dentro da nossa classe controller
