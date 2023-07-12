@@ -1,5 +1,5 @@
 # SpringBoot_3_Alura
-Curso de Spring Boot Alura
+Curso de Spring Boot 3 Alura
 
 Anotaçãoes:
 
@@ -52,6 +52,9 @@ usando lombok eu posso usar a anotação
 @AllArgsConstructor que gera um construtor com todas as entidades todos os campos
 
 @EqualsAndHashcode gera o equal e hashcode e nele eu posso especificar onde ele deve trabalhar EX: (of = "id")
+
+@PathVariable  essa anotação vincula o espaço reservado do URI a um parâmetro de método dentro do método manipulador
+
 
 BeanValidation usamos ele na classe record que é onde o metodo cadastrar da classe controller recebe os parametros
 Bean Validation, a partir de anotações ele vai verificar, no caso, se as informações que chegam estão de acordo com as 
@@ -125,3 +128,16 @@ dentro da pasta resources, db e dentro dele migration e dentro dessa pasta ciram
 Nova migração, para fazer uma mudança na API como no caso vamos adicionar o parametro telefone ao medico, precisamos adicionar
 um um parametro na migração no arquivo sql porem não podemos modificar oque ja foi feito, para isso devemos criar um nova migration
 uma nova migração com as modificações feitas.
+
+ResponseEntity significa representar toda a resposta HTTP. Você pode controlar qualquer coisa que aconteça: código de status,
+cabeçalhos e corpo. Trabalhando com microservice, ResponseEntity para enviar resposta completa, com status, com cabeçalho e corpo
+
+UriBuilder classe fornece uma maneira conveniente de modificar o conteúdo de uma Uri instância sem criar uma nova Uri instância
+para cada modificação.
+        ex :
+        var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
+
+toUri() cria o objeto uri
+
+
+
