@@ -55,6 +55,9 @@ usando lombok eu posso usar a anotação
 
 @PathVariable  essa anotação vincula o espaço reservado do URI a um parâmetro de método dentro do método manipulador
 
+@RestControllerAdvice  é uma especialização da anotação @Component, que permite manipular exceções em todo o aplicativo em um componente global
+é uma anotação para se usar em classes para tratamento de erros para que o Spring reconheça essa classe com ese intuito de tratar exceptions
+
 
 BeanValidation usamos ele na classe record que é onde o metodo cadastrar da classe controller recebe os parametros
 Bean Validation, a partir de anotações ele vai verificar, no caso, se as informações que chegam estão de acordo com as 
