@@ -13,6 +13,8 @@ requisição localhost:8080/ex ira cair nesse controller.
 
 @Valid -> indica que os dados recebidos devem ser validados.
 
+@Bean serve para exportar uma classe para o Spring, fazendo com que ele consiga carregá-la e realizar a sua injeção de dependência em outras classes.
+
 @GeneratedValue faz parte do pacote javax. persistence. Neste caso, o identificador único será gerado pela coluna de auto incremento
 do banco de dados, ou seja ele fala que o campo mapeado será gerado automaticamente pelo banco de dados, dai temos algumas estrategia como
 Identity que falamos que deve pegar o ultimo registro daquela tabela e seguir com base naquele
