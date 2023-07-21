@@ -24,11 +24,17 @@ public class AutenticacaoController {
 
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutentiacacao dados) {
-        var autheticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha()); // UsernamePasswordAuthenticationToken é como se fosse um DTO do proprio spring
-        var authentication = manager.authenticate(autheticationToken); // Este método devolve o objeto que representa o usuário autenticado no sistema.
 
-        var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal()); // gera token com informações do usuario
+            var autheticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha()); // UsernamePasswordAuthenticationToken é como se fosse um DTO do
+        // proprio spring, que recebe os dados de login e senha
+            var authentication = manager.authenticate(autheticationToken); // Este método devolve o objeto que representa o usuário autenticado no sistema, que dispara a
+        // autenticação, de login
 
-        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+            var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal()); // metodo que gera o token ele recebe os dados da classe authentication que dentro dela
+        //tem os dados do usuario, como esse metodo devolve um object  fazemos o casting para Usuario, com isso ele gera o Token
+
+            return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+
+        }
     }
-}
+

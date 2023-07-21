@@ -7,6 +7,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @RestControllerAdvice
 public class TratadorDeErros {
     @ExceptionHandler(EntityNotFoundException.class)
@@ -20,6 +23,8 @@ public class TratadorDeErros {
         return ResponseEntity.badRequest().body(erros.stream().map(DadosErroValidacao::new).toList());
 
     }
+
+
 
     private record DadosErroValidacao(String campo, String mensagem){
         public DadosErroValidacao(FieldError erro){

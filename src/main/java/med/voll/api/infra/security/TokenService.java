@@ -3,6 +3,7 @@ package med.voll.api.infra.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import med.voll.api.domain.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,18 +14,33 @@ import java.time.ZoneOffset;
 
 @Service
 public class TokenService {
-    @Value("${api.security.token.secret}")
+
+    @Value("${api.security.token.secret}") // Anotação para que o Spring leia esse parametro que fizemos no appProperties
     private String secret;
+
     public String gerarToken(Usuario usuario) {
         try {
             var algoritimo = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("API Voll.med")
-                    .withSubject(usuario.getLogin())
-                    .withExpiresAt(dataExpiracao())
+                    .withSubject(usuario.getLogin()) // metodo para identificar o usuario dono desse token
+                    .withExpiresAt(dataExpiracao()) // metodo criar uma data de expiração do token
                     .sign(algoritimo);
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro ao gerar token JWT", exception.getCause());
+        }
+    }
+    public String getSubject(String tokenJWT){
+        try {
+            var algoritimo = Algorithm.HMAC256(secret);
+            return  JWT.require(algoritimo)
+                    .withIssuer("API Voll.med")
+                    .build()
+                    .verify(tokenJWT)
+                    .getSubject();
+
+        } catch (JWTVerificationException exception){
+            throw new RuntimeException("Token JWT invalido ou expirado");
         }
     }
 

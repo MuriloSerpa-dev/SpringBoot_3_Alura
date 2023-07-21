@@ -13,5 +13,5 @@ public class AltenticacaoService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByLogin(username);
-    }
+    } // metodo que faz o select no banco de dados
 }

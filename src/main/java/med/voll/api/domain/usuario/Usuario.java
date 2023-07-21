@@ -18,13 +18,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Usuario implements UserDetails { // preciso implmentar essa interface para o  Spring security para entender oque são os campo
+public class Usuario implements UserDetails { // preciso implementar essa interface para o  Spring security para entender oque são os campo
     // como Login e senha
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String login;
     private String senha;
 
@@ -33,6 +32,7 @@ public class Usuario implements UserDetails { // preciso implmentar essa interfa
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROlE_USER")); // É obrigatorio retornar uma collection uma lista, porem não temos controle de perfil
         // podemos usar qualquer tela na nossa api então fazemos uma lista generica
+        // Essa lista collection é para vc configurar um controle de perfil como adiminitrador, moderador etc
     }
 
     @Override

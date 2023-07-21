@@ -13,7 +13,7 @@ requisição localhost:8080/ex ira cair nesse controller.
 
 @Valid -> indica que os dados recebidos devem ser validados.
 
-@Bean serve para exportar uma classe para o Spring, fazendo com que ele consiga carregá-la e realizar a sua injeção de dependência em outras classes.
+@Bean serve para exportar uma classe/ metodo para o Spring, fazendo com que ele consiga carregá-la e realizar a sua injeção de dependência em outras classes.
 
 @GeneratedValue faz parte do pacote javax. persistence. Neste caso, o identificador único será gerado pela coluna de auto incremento
 do banco de dados, ou seja ele fala que o campo mapeado será gerado automaticamente pelo banco de dados, dai temos algumas estrategia como
@@ -144,5 +144,23 @@ para cada modificação.
 
 toUri() cria o objeto uri
 
+UserDetailsService
+Classe AutenticacaoService que iomplementa  a interface UserDetailsService,  são lidas automaticamente pelo Springo por ter essa anotação, e essa anotação
+carrega um metodo que recebe um repository como retorno e nele pasamos a instacia do respository com um metodo repository.FindByLogin 
+que o criaremos na classe usuarioRepository dessa forma UserDetails findByLogin(String login), que recebe uma String esse metodo que
+vai fazer a consulta no banco de dados.
 
+@EnableWebSecurity  Indicar ao Spring que vamos personalizar alguma configurações
 
+EfetuarLogin
+
+Classe SecurityConfigurations é uma classe criada nessa api para, configurar a segurança da API como para mudar a api para o 
+metodo de processo de autenticação para Statless, nele criamos o metodo passwordEncoder Metodo para ensinar o spring que é
+para usar esse Hashi de senha para o tipo escolhido no caso Bcrypt
+
+AuthenticationManager é uma classe do Spring que dispara a autenticação
+manager.authenticate(autheticationToken); -> Este método devolve o objeto que representa o usuário autenticado no sistema.
+porem ele recebe como parametro um objeto dele spring não uma classe nossa, então vamos criar essa classe inscanciando a classe
+UsernamePasswordAutheticationToken e passamos o nosso DTO.
+var autheticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha()); 
+Apos no metodo de efetuar login retornamos o ResponseEntity.ok 
