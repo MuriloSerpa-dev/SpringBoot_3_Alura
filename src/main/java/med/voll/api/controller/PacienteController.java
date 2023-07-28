@@ -51,7 +51,7 @@ public class PacienteController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deletar(@PathVariable Long id) {
-        var paciente = pacienteRespository.getReferenceById(id);
+        var paciente = pacienteRespository.getReferenceById(id); // maneira de buscar um objeto no SQL
         paciente.excluir();
 
         return ResponseEntity.noContent().build();

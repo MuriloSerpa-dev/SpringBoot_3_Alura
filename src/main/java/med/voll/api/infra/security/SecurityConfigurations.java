@@ -20,14 +20,15 @@ public class SecurityConfigurations {
     @Autowired
     private SecurityFilter securityFilter;
     @Bean //Anotação serve para expor o retorno do metodo, para devolver o objeto para o spring
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { // metodo para configurar como sera feita a cadeia de filtros controle de acesso
         return http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers(HttpMethod.POST, "/login").permitAll();
-                    req.anyRequest().authenticated();
+                    req.requestMatchers(HttpMethod.POST, "/login").permitAll(); // Aqui estou dizendo para o spring que eu posso disparar essa requisição que
+                    // ela sera permitida, sem autenticação
+                    req.anyRequest().authenticated(); // qualquer outra a não ser de login sera bloqueada
                 })
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class).build();
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class).build(); // configurando a ordem que eu quero que os filtros vão funcionar
 
 } // Metodo para mudar a configuração de segurança,desabilitando o bloqueio padrao mudando o prosseso de autenticação para Stateless
     @Bean

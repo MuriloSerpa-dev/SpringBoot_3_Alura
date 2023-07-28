@@ -18,7 +18,6 @@ import java.io.IOException;
 public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     private TokenService tokenService;
-
     @Autowired
     private UsuarioRepository repository;
 
@@ -31,8 +30,10 @@ public class SecurityFilter extends OncePerRequestFilter {
             var subject = tokenService.getSubject(tokenJWT);
             var usuario = repository.findByLogin(subject);
 
-            var authentication = new UsernamePasswordAuthenticationToken(usuario,null,usuario.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            //Metodo para utenticar o ousuario
+            var authentication = new UsernamePasswordAuthenticationToken(usuario,null,usuario.getAuthorities()); // Como se fosse um DTO do string que
+            // recebe, algumas informações do usario
+            SecurityContextHolder.getContext().setAuthentication(authentication); // Para setar um usuario logado
 
             System.out.println("LOGADO NA REQUISIÇÂO ");
         }
@@ -43,7 +44,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     private String recuperarToken(HttpServletRequest request) {
         var authorizationHeader = request.getHeader("Authorization");
        if (authorizationHeader != null){
-           return authorizationHeader.replace("Bearer ", "").trim();
+           return authorizationHeader.replace("Bearer ", "").trim(); // para retirar o prefixo trazer apenas o token
        }
         return null;
 
