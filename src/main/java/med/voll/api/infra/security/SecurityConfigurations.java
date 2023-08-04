@@ -26,6 +26,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll(); // Aqui estou dizendo para o spring que eu posso disparar essa requisição que
                     // ela sera permitida, sem autenticação
+                    req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     req.anyRequest().authenticated(); // qualquer outra a não ser de login sera bloqueada
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class).build(); // configurando a ordem que eu quero que os filtros vão funcionar
