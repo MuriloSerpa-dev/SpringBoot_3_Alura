@@ -16,8 +16,8 @@ public class ConsultaController {
 
     @Autowired
     private AgendaDeConsultas agendaDeConsultas;
-    @PostMapping
 
+    @PostMapping
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsulta dados){
      var detalhamentoConsulta =  agendaDeConsultas.agendar(dados);
